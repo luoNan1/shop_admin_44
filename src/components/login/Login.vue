@@ -53,7 +53,6 @@
           >登录</el-button>
           <el-button @click='resetForm'>重置</el-button>
         </el-form-item>
-        <h1>我是login页的h1</h1>
       </el-form>
     </el-col>
   </el-row>
@@ -63,6 +62,7 @@
 <script>
 /* eslint-disable */
 import axios from 'axios'
+import { log } from 'util';
 export default {
   data () {
     return {
@@ -108,8 +108,11 @@ export default {
         // console.log('校验成功, 开始去登录了')
         // axios.post(url,data,config)
         axios.post('http://localhost:8888/api/private/v1/login', this.loginForm).then(res => {
+          //把token保存到本地
           console.log(res);
 
+          // console.log(res.data.data.token);
+          localStorage.setItem('token', res.data.data.token)
           if (res.data.meta.status === 200) {
 
             // 提示
